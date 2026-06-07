@@ -149,7 +149,7 @@ const Navbar = () => {
           to="/"
           className="min-w-9 inline-flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
         >
-          <img src="/public/project-svgrepo-com.svg" alt="logo" className="h-9 w-auto" />
+          <img src="/project-svgrepo-com.svg" alt="logo" className="h-9 w-auto" />
           <span className="font-bold text-slate-900 dark:text-white hidden sm:block">
             Smart Project Manager
           </span>
