@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Base CSS Variables  */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+  --nav-bg: #ffffff;
+  --nav-border: #e2e8f0;
+  --input-bg: #ffffff;
+  --input-text: #0f172a;
+  --input-border: #d1d5db;
+  --sidebar-bg: #f1f5f9;
+}
+
+:root.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border-color: #334155;
+  --nav-bg: #0f172a;
+  --nav-border: #1e293b;
+  --input-bg: #1e293b;
+  --input-text: #e2e8f0;
+  --input-border: #475569;
+  --sidebar-bg: #1e293b;
+}
+
+/* Base  */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth transition for theme switch */
+*, *::before, *::after {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease;
+}
+
+/* GLOBAL DARK MODE OVERRIDES These automatically fix all pages without touching them */
+
+/* Cards & containers */
+.dark .bg-white {
+  background-color: #1e293b !important;
+}
+.dark .bg-gray-50 {
+  background-color: #0f172a !important;
+}
+.dark .bg-gray-50\/50,
+.dark .bg-gray-50\/30 {
+  background-color: rgba(15, 23, 42, 0.5) !important;
+}
+.dark .bg-gray-100 {
+  background-color: #1e293b !important;
+}
+.dark .bg-gray-200 {
+  background-color: #334155 !important;
+}
+.dark .bg-slate-50 {
+  background-color: #0f172a !important;
+}
+.dark .bg-slate-100 {
+  background-color: #1e293b !important;
+}
+
+/* Page background */
+.dark .min-h-screen.bg-gray-50,
+.dark .min-h-screen.bg-gray-50\/50 {
+  background-color: #0f172a !important;
+}
+
+/* Text colors */
+.dark .text-gray-800,
+.dark .text-gray-900,
+.dark .text-slate-900 {
+  color: #f1f5f9 !important;
+}
+.dark .text-gray-850 {
+  color: #e2e8f0 !important;
+}
+.dark .text-gray-700,
+.dark .text-slate-700 {
+  color: #cbd5e1 !important;
+}
+.dark .text-gray-600,
+.dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+.dark .text-gray-500,
+.dark .text-slate-500 {
+  color: #dbdcdd !important;
+}
+.dark .text-gray-400,
+.dark .text-slate-400 {
+  color: #475569 !important;
+}
+
+/* Borders */
+.dark .border-gray-50 {
+  border-color: #1e293b !important;
+}
+.dark .border-gray-100 {
+  border-color: #334155 !important;
+}
+.dark .border-gray-200 {
+  border-color: #475569 !important;
+}
+
+/* Dividers */
+.dark .divide-gray-50 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #1e293b !important;
+}
+.dark .divide-gray-100 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #334155 !important;
+}
+
+/* Input, Select, Textarea */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border-color: var(--input-border) !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748b !important;
+}
+.dark select option {
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+/* Tables */
+.dark table thead tr,
+.dark table thead {
+  background-color: #1e293b !important;
+  color: #94a3b8 !important;
+}
+.dark table thead th {
+  color: #94a3b8 !important;
+}
+.dark table tbody tr {
+  color: #cbd5e1 !important;
+}
+.dark table tbody td {
+  color: #cbd5e1 !important;
+}
+.dark .bg-gray-50.border-b,
+.dark thead.bg-gray-50 {
+  background-color: #1a2744 !important;
+}
+
+/* Hover states on rows */
+.dark .hover\:bg-gray-50\/30:hover,
+.dark .hover\:bg-gray-50\/50:hover,
+.dark .hover\:bg-gray-50:hover {
+  background-color: rgba(51, 65, 85, 0.3) !important;
+}
+
+/* Buttons that use gray bg */
+.dark .bg-gray-100.text-gray-600,
+.dark .bg-gray-50.text-gray-700 {
+  background-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+/* Pagination buttons */
+.dark .border-gray-200.text-gray-500 {
+  border-color: #475569 !important;
+  color: #94a3b8 !important;
+}
+.dark .hover\:bg-gray-50:hover {
+  background-color: #334155 !important;
+}
+
+/* Modals / popups */
+.dark .bg-white.rounded-2xl,
+.dark .bg-white.rounded-xl {
+  background-color: #1e293b !important;
+}
+
+/* Progress bars track */
+.dark .bg-gray-100.rounded-full {
+  background-color: #334155 !important;
+}
+
+/* Skeleton loaders */
+.dark .animate-pulse.bg-gray-100 {
+  background-color: #334155 !important;
+}
+
+/* Links on dark bg */
+.dark .text-gray-700.hover\:text-gray-800 {
+  color: #cbd5e1 !important;
+}
+
+/* Admin red panel */
+.dark .bg-red-50\/50 {
+  background-color: rgba(127, 29, 29, 0.15) !important;
+}
+.dark .bg-red-50\/50.border-red-100 {
+  border-color: #7f1d1d40 !important;
+}
+
+/* Quick Nav links */
+.dark .bg-gray-50.hover\:bg-blue-50\/70 {
+  background-color: #1e293b !important;
+}
+
+/* Border-b separator lines */
+.dark .border-b.border-gray-100,
+.dark .border-b.border-gray-50 {
+  border-color: #334155 !important;
+}
+.dark .border-t.border-gray-50,
+.dark .border-t.border-gray-100 {
+  border-color: #334155 !important;
+}
+
+/* ── Scrollbar Styling ──────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
