@@ -103,9 +103,24 @@ const ProjectsTab = ({ projects, fetchProjects, fetchingProjects }) => {
         All Projects ({projects.length})
       </h2>
       {fetchingProjects ? (
-        <div className="text-center py-12 text-gray-400">
-          <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-          Loading...
+        //skeleton loaders
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl shadow-md p-5 flex flex-col min-h-40"
+            >
+              <div className="flex justify-between items-start mb-4">
+                <div className="h-6 bg-gray-200 dark:bg-slate-800 rounded-md animate-pulse w-1/2"></div>
+                <div className="h-6 bg-gray-200 dark:bg-slate-800 rounded-md animate-pulse w-20"></div>
+              </div>
+              <div className="space-y-2 mb-4 grow">
+                <div className="h-4 bg-gray-200 dark:bg-slate-800 rounded animate-pulse w-full"></div>
+                <div className="h-4 bg-gray-200 dark:bg-slate-800 rounded animate-pulse w-5/6"></div>
+              </div>
+              <div className="h-4 bg-gray-200 dark:bg-slate-800 rounded animate-pulse w-1/3"></div>
+            </div>
+          ))}
         </div>
       ) : projects.length === 0 ? (
         <div className="bg-white dark:bg-slate-900 dark:border-slate-800 rounded-xl shadow p-8 text-center text-gray-400">
@@ -133,7 +148,10 @@ const ProjectsTab = ({ projects, fetchProjects, fetchingProjects }) => {
                   {p.description}
                 </p>
                 <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-slate-300 mb-4">
-                  <CalendarDays size={14} className="text-blue-500 dark:text-blue-400" />
+                  <CalendarDays
+                    size={14}
+                    className="text-blue-500 dark:text-blue-400"
+                  />
                   <span>
                     {p.deadline
                       ? new Date(p.deadline).toLocaleDateString("en-BD")
@@ -142,13 +160,26 @@ const ProjectsTab = ({ projects, fetchProjects, fetchingProjects }) => {
                 </div>
                 {p.members?.length > 0 && (
                   <div className="flex items-center gap-1.5 mb-3 text-xs text-gray-600 dark:text-slate-300">
-                    <Users size={14} className="text-blue-500 dark:text-blue-400" />
+                    <Users
+                      size={14}
+                      className="text-blue-500 dark:text-blue-400"
+                    />
                     <span>{p.members.map((m) => m.name).join(", ")}</span>
                   </div>
                 )}
                 <div className="flex gap-2">
-                  <button onClick={() => handleProjectEdit(p)} className="flex-1 bg-indigo-500 text-white py-2 rounded-lg text-sm hover:bg-indigo-600 cursor-pointer">Edit</button>
-                  <button onClick={() => handleProjectDelete(p._id)} className="flex-1 bg-red-500 text-white py-2 rounded-lg text-sm hover:bg-red-600 cursor-pointer">Delete</button>
+                  <button
+                    onClick={() => handleProjectEdit(p)}
+                    className="flex-1 bg-indigo-500 text-white py-2 rounded-lg text-sm hover:bg-indigo-600 cursor-pointer"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleProjectDelete(p._id)}
+                    className="flex-1 bg-red-500 text-white py-2 rounded-lg text-sm hover:bg-red-600 cursor-pointer"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             ))}
@@ -164,25 +195,29 @@ const ProjectsTab = ({ projects, fetchProjects, fetchingProjects }) => {
               >
                 Previous
               </button>
-              
+
               <div className="items-center gap-1 hidden sm:flex">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`w-10 h-10 rounded-lg flex items-center justify-center transition cursor-pointer ${
-                      currentPage === page
-                        ? "bg-blue-600 text-white shadow-md"
-                        : "bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800"
-                    }`}
-                  >
-                    {page}
-                  </button>
-                ))}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-10 h-10 rounded-lg flex items-center justify-center transition cursor-pointer ${
+                        currentPage === page
+                          ? "bg-blue-600 text-white shadow-md"
+                          : "bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ),
+                )}
               </div>
 
               <button
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
                 disabled={currentPage === totalPages}
                 className="px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-slate-800 transition cursor-pointer"
               >

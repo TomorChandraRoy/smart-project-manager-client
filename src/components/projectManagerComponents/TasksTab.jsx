@@ -193,24 +193,21 @@ const TasksTab = ({ projects, members, user }) => {
       </div>
 
       {fetchingTasks ? (
-        <div className="flex flex-col items-center justify-center py-16">
-          <div className="flex gap-2 mb-4">
+        //skeleton loaders
+        <div className="bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl shadow-md overflow-hidden animate-pulse">
+          <div className="bg-gray-100 dark:bg-slate-800 h-14 w-full"></div>
+          {[...Array(5)].map((_, i) => (
             <div
-              className="w-3.5 h-3.5 rounded-full bg-blue-500 animate-bounce"
-              style={{ animationDelay: "0s" }}
-            ></div>
-            <div
-              className="w-3.5 h-3.5 rounded-full bg-indigo-500 animate-bounce"
-              style={{ animationDelay: "0.15s" }}
-            ></div>
-            <div
-              className="w-3.5 h-3.5 rounded-full bg-purple-500 animate-bounce"
-              style={{ animationDelay: "0.3s" }}
-            ></div>
-          </div>
-          <p className="text-transparent bg-clip-text bg-linear-to-r from-blue-500 to-purple-500 font-semibold animate-pulse tracking-wide">
-            Loading Tasks...
-          </p>
+              key={i}
+              className="flex items-center justify-between p-4 border-t border-gray-100 dark:border-slate-800"
+            >
+              <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/4"></div>
+              <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/6"></div>
+              <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/6"></div>
+              <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-20"></div>
+              <div className="h-6 bg-gray-200 dark:bg-slate-700 rounded w-24"></div>
+            </div>
+          ))}
         </div>
       ) : tasks.length === 0 ? (
         <div className="bg-white dark:bg-slate-900 rounded-xl shadow p-8 text-center text-gray-400 border border-gray-100 dark:border-slate-800">
@@ -220,126 +217,134 @@ const TasksTab = ({ projects, members, user }) => {
         <>
           <div className="bg-white dark:bg-slate-900 rounded-xl shadow-md overflow-hidden border border-gray-100 dark:border-slate-800">
             <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-900 dark:via-indigo-900 dark:to-purple-900 text-white shadow-sm border-b dark:border-slate-700">
-                <tr>
-                  <th className="p-4 font-semibold tracking-wide">Title</th>
-                  <th className="p-4 font-semibold tracking-wide">Project</th>
-                  <th className="p-4 font-semibold tracking-wide">
-                    Assigned To
-                  </th>
-                  <th className="p-4 font-semibold tracking-wide">Due Date</th>
-                  <th className="p-4 font-semibold tracking-wide">Priority</th>
-                  <th className="p-4 font-semibold tracking-wide">Status</th>
-                  <th className="p-4 font-semibold tracking-wide text-center">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-slate-700">
-                {currentTasks.map((t) => (
-                  <tr
-                    key={t._id}
-                    className="hover:bg-blue-50/50 dark:hover:bg-indigo-900/20 transition-colors"
-                  >
-                    <td className="p-4 font-medium text-gray-800 dark:text-slate-100">
-                      {t.title}
-                    </td>
-                    <td className="p-4 text-gray-500 dark:text-slate-400">
-                      {t.project?.name || "—"}
-                    </td>
-                    <td className="p-4 text-gray-500 dark:text-slate-400">
-                      {t.assignedTo?.name || "Unassigned"}
-                    </td>
-                    <td className="p-4 text-gray-500 dark:text-slate-400">
-                      {t.dueDate
-                        ? new Date(t.dueDate).toLocaleDateString("en-BD")
-                        : "—"}
-                    </td>
-                    <td className="p-4">
-                      <span
-                        className={`inline-flex items-center justify-center px-3 py-1.5 rounded-md text-xs font-medium min-w-22.5 ${PRIORITY_COLOR[t.priority] || "bg-gray-100 text-gray-600"}`}
-                      >
-                        {t.priority}
-                      </span>
-                    </td>
-                    <td className="p-4">
-                      <span
-                        className={`inline-flex items-center justify-center px-3 py-1.5 rounded-md text-xs font-medium min-w-22.5 ${STATUS_COLOR[t.status] || "bg-gray-100 text-gray-600"}`}
-                      >
-                        {t.status}
-                      </span>
-                    </td>
-                    <td className="p-4">
-                      <div className="flex gap-2 flex-wrap">
-                        <button
-                          onClick={() => openEditTask(t)}
-                          className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded text-xs hover:bg-indigo-200 cursor-pointer"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleTaskDelete(t._id)}
-                          className="bg-red-100 text-red-700 px-3 py-1 rounded text-xs hover:bg-red-200 cursor-pointer"
-                        >
-                          Delete
-                        </button>
-                        <button
-                          onClick={() => setSelectedTaskForComment(t)}
-                          className="flex items-center gap-1 bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1 rounded text-xs hover:bg-blue-100 transition cursor-pointer"
-                        >
-                          <MessageSquare size={11} />
-                          {t.comments?.length > 0
-                            ? `${t.comments.length}`
-                            : ""}{" "}
-                          Comments
-                        </button>
-                      </div>
-                    </td>
+              <table className="w-full text-left text-sm">
+                <thead className="bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-900 dark:via-indigo-900 dark:to-purple-900 text-white shadow-sm border-b dark:border-slate-700">
+                  <tr>
+                    <th className="p-4 font-semibold tracking-wide">Title</th>
+                    <th className="p-4 font-semibold tracking-wide">Project</th>
+                    <th className="p-4 font-semibold tracking-wide">
+                      Assigned To
+                    </th>
+                    <th className="p-4 font-semibold tracking-wide">
+                      Due Date
+                    </th>
+                    <th className="p-4 font-semibold tracking-wide">
+                      Priority
+                    </th>
+                    <th className="p-4 font-semibold tracking-wide">Status</th>
+                    <th className="p-4 font-semibold tracking-wide text-center">
+                      Actions
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Pagination Controls */}
-        {totalPages > 1 && (
-          <div className="flex justify-center mt-6 gap-2">
-            <button
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              disabled={currentPage === 1}
-              className="px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-slate-800 transition cursor-pointer"
-            >
-              Previous
-            </button>
-            
-            <div className="hidden sm:flex items-center gap-1">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`w-10 h-10 rounded-lg flex items-center justify-center transition cursor-pointer ${
-                    currentPage === page
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800"
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
+                </thead>
+                <tbody className="divide-y divide-gray-100 dark:divide-slate-700">
+                  {currentTasks.map((t) => (
+                    <tr
+                      key={t._id}
+                      className="hover:bg-blue-50/50 dark:hover:bg-indigo-900/20 transition-colors"
+                    >
+                      <td className="p-4 font-medium text-gray-800 dark:text-slate-100">
+                        {t.title}
+                      </td>
+                      <td className="p-4 text-gray-500 dark:text-slate-400">
+                        {t.project?.name || "—"}
+                      </td>
+                      <td className="p-4 text-gray-500 dark:text-slate-400">
+                        {t.assignedTo?.name || "Unassigned"}
+                      </td>
+                      <td className="p-4 text-gray-500 dark:text-slate-400">
+                        {t.dueDate
+                          ? new Date(t.dueDate).toLocaleDateString("en-BD")
+                          : "—"}
+                      </td>
+                      <td className="p-4">
+                        <span
+                          className={`inline-flex items-center justify-center px-3 py-1.5 rounded-md text-xs font-medium min-w-22.5 ${PRIORITY_COLOR[t.priority] || "bg-gray-100 text-gray-600"}`}
+                        >
+                          {t.priority}
+                        </span>
+                      </td>
+                      <td className="p-4">
+                        <span
+                          className={`inline-flex items-center justify-center px-3 py-1.5 rounded-md text-xs font-medium min-w-22.5 ${STATUS_COLOR[t.status] || "bg-gray-100 text-gray-600"}`}
+                        >
+                          {t.status}
+                        </span>
+                      </td>
+                      <td className="p-4">
+                        <div className="flex gap-2 flex-wrap">
+                          <button
+                            onClick={() => openEditTask(t)}
+                            className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded text-xs hover:bg-indigo-200 cursor-pointer"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleTaskDelete(t._id)}
+                            className="bg-red-100 text-red-700 px-3 py-1 rounded text-xs hover:bg-red-200 cursor-pointer"
+                          >
+                            Delete
+                          </button>
+                          <button
+                            onClick={() => setSelectedTaskForComment(t)}
+                            className="flex items-center gap-1 bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1 rounded text-xs hover:bg-blue-100 transition cursor-pointer"
+                          >
+                            <MessageSquare size={11} />
+                            {t.comments?.length > 0
+                              ? `${t.comments.length}`
+                              : ""}{" "}
+                            Comments
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-
-            <button
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              disabled={currentPage === totalPages}
-              className="px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-slate-800 transition cursor-pointer"
-            >
-              Next
-            </button>
           </div>
-        )}
-      </>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-6 gap-2">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-slate-800 transition cursor-pointer"
+              >
+                Previous
+              </button>
+
+              <div className="hidden sm:flex items-center gap-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-10 h-10 rounded-lg flex items-center justify-center transition cursor-pointer ${
+                        currentPage === page
+                          ? "bg-blue-600 text-white shadow-md"
+                          : "bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ),
+                )}
+              </div>
+
+              <button
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(totalPages, p + 1))
+                }
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-lg bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-slate-800 transition cursor-pointer"
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {selectedTaskForComment && (

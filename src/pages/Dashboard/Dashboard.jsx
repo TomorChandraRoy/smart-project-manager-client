@@ -86,11 +86,15 @@ const Dashboard = () => {
 
   if (loading) {
     return (
+      //Skeleton Loader
       <div className="p-6 max-w-7xl mx-auto space-y-6">
         <div className="h-20 bg-gray-100 dark:bg-slate-800 rounded-xl animate-pulse w-full"></div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-24 bg-gray-100 dark:bg-slate-800 rounded-xl animate-pulse"></div>
+            <div
+              key={i}
+              className="h-24 bg-gray-100 dark:bg-slate-800 rounded-xl animate-pulse"
+            ></div>
           ))}
         </div>
         <div className="h-96 bg-gray-100 dark:bg-slate-800 rounded-xl animate-pulse"></div>

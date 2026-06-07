@@ -31,11 +31,25 @@ const WorkloadTab = () => {
     };
     fetchWorkload();
   }, []);
-
+  //skeleton loaders
   if (loading) {
     return (
-      <div className="text-center py-10 text-gray-500">
-        Loading workload data...
+      <div className="bg-white dark:bg-slate-900 dark:border-slate-800 rounded-xl shadow-md overflow-hidden animate-pulse">
+        <div className="bg-gray-100 dark:bg-slate-800 h-16 w-full"></div>
+        <div className="p-4 space-y-4">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="flex items-center justify-between border-b border-gray-100 dark:border-slate-800 pb-4"
+            >
+              <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/5"></div>
+              <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/12"></div>
+              <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/12"></div>
+              <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/12"></div>
+              <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/4"></div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

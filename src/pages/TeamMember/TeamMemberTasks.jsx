@@ -200,6 +200,7 @@ const TeamMemberTasks = () => {
         </div>
 
         {/* Task Cards */}
+        {/* skeleton loaders */}
         {loading ? (
           <div className="space-y-3">
             {[...Array(4)].map((_, i) => (
@@ -248,21 +249,23 @@ const TeamMemberTasks = () => {
             >
               Previous
             </button>
-            
+
             <div className="hidden sm:flex items-center gap-1">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`w-10 h-10 rounded-lg flex items-center justify-center transition cursor-pointer ${
-                    currentPage === page
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800"
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center transition cursor-pointer ${
+                      currentPage === page
+                        ? "bg-blue-600 text-white shadow-md"
+                        : "bg-white dark:bg-slate-900 border dark:border-slate-700 text-gray-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ),
+              )}
             </div>
 
             <button
